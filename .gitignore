@@ -1,0 +1,9 @@
+# python specific
+__pycache__/
+*.egg-info/
+
+# package specific
+test.pdf
+
+# fonts specific
+*.otf
