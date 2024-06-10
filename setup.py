@@ -9,8 +9,8 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/RDoerfel/plotting',
-    packages=find_packages(where='src'),
-    package_dir={'': 'src'},
+    packages=find_packages(where='plotting'),
+    package_dir={'': 'plotting'},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
