@@ -9,5 +9,5 @@ conda activate plotting
 ```
 ### Install the package from github
 ```bash
-pip install git+git@github.com:RDoerfel/plotting.git
+pip install plotting@git+https://github.com/RDoerfel/plotting.git
 ```
