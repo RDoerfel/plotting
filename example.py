@@ -1,5 +1,5 @@
 # %% Import modules
-from src.figures import Plotting
+from plotting.figures import Plotting
 
 settings = Plotting()
 settings.set_rc_params(fontfamily="Arial", small=8, medium=10, big=12)
