@@ -85,20 +85,6 @@ def set_style(
     return fig
 
 
-def save_fig(
-    fig: plt.Figure, filename: str, dpi: int = 300, bbox_inches: str = "tight", pad_inches: float = 0.1
-) -> None:
-    """save figure to file
-    args:
-        fig: figure object
-        filename: filename to save
-        dpi: resolution of the figure
-        bbox_inches: bounding box in inches
-        pad_inches: padding in inches
-    """
-    fig.savefig(filename, dpi=dpi, bbox_inches=bbox_inches, pad_inches=pad_inches)
-
-
 def get_figures(
     rows: int, cols: int, unit: str, figwidth: float, figheight: float, sharex=True, sharey=True
 ) -> plt.Figure:
