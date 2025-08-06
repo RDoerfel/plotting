@@ -114,7 +114,7 @@ class TestGetFigures:
 
     def test_get_figures_cm_units(self):
         """Test figure creation with cm units."""
-        figwidth_cm, figheight_cm = 10, 8
+        figwidth_cm, figheight_cm = 2.54, 2.54
         fig, ax = figures.get_figures(rows=1, cols=1, unit="cm", figwidth=figwidth_cm, figheight=figheight_cm)
 
         expected_width = figwidth_cm / CM2INCH
