@@ -2,100 +2,138 @@
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from typing import Literal, Tuple, Optional
 from .constants import CM2INCH
 
 
-def set_rc_params(fontfamily: str = None, small=8, medium=10, big=12) -> None:
-    """set rc parameters for plots
-    args:
-        fontfamily: font family
-        small: fontsize for small text
-        medium: fontsize for medium text
-        big: fontsize for big text
+def set_rc_params(fontfamily: Optional[str] = None, small: int = 8, medium: int = 10, big: int = 12) -> None:
+    """Set rc parameters for plots.
+
+    Args:
+        fontfamily: Font family (e.g., 'serif', 'sans-serif', 'monospace')
+        small: Font size for small text (ticks, legend)
+        medium: Font size for medium text (labels, default)
+        big: Font size for big text (titles)
+
+    Raises:
+        ValueError: If font sizes are not positive integers
     """
-    mpl.rcParams.update()
+    if not all(isinstance(size, int) and size > 0 for size in [small, medium, big]):
+        raise ValueError("Font sizes must be positive integers")
+
+    # Reset to defaults first
+    mpl.rcParams.update(mpl.rcParamsDefault)
+
     if fontfamily is not None:
         plt.rc("font", family=fontfamily)
-    plt.rc("font", size=medium)  # controls default text sizes
-    plt.rc("axes", titlesize=big)  # fontsize of the axes title
-    plt.rc("axes", labelsize=medium)  # fontsize of the x and y labels
-    plt.rc("xtick", labelsize=small)  # fontsize of the tick labels
-    plt.rc("ytick", labelsize=small)  # fontsize of the tick labels
-    plt.rc("legend", fontsize=small)  # legend fontsize
-    plt.rc("savefig", dpi=300)  # figure resolution
-    plt.rc("pdf", fonttype=42)
+
+    plt.rc("font", size=medium)
+    plt.rc("axes", titlesize=big)
+    plt.rc("axes", labelsize=medium)
+    plt.rc("xtick", labelsize=small)
+    plt.rc("ytick", labelsize=small)
+    plt.rc("legend", fontsize=small)
+    plt.rc("savefig", dpi=300)
+    plt.rc("pdf", fonttype=42)  # Embed fonts properly
     plt.rc("ps", fonttype=42)
 
 
 def _set_spine_style(fig: plt.Figure, offleft: float = 5, offbottom: float = 5, spinewidth: float = 1.4) -> plt.Figure:
-    """set spine style for axes
-    args:
-        ax: axes object
-        offleft: offset left
-        offbottom: offset bottom
-        spinewidth: width of spines
-    returns: figure object"""
+    """Set spine style for all axes in figure."""
     for ax in fig.axes:
+        # Remove top and right spines
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
+
+        # Position remaining spines
         ax.spines["left"].set_position(("outward", offleft))
         ax.spines["bottom"].set_position(("outward", offbottom))
-        plt.setp(ax.spines.values(), linewidth=spinewidth)
+
+        # Set spine width
+        for spine in ax.spines.values():
+            spine.set_linewidth(spinewidth)
+
     return fig
 
 
 def _set_grid_style(fig: plt.Figure, gridlinewidth: float = 0.8) -> plt.Figure:
-    """set grid style for axes
-    args:
-        fig: figure object
-        gridlinewidth: width of grid lines
-    returns: figure object"""
+    """Set grid style for all axes in figure."""
     for ax in fig.axes:
-        ax.grid(which="major", axis="y", color="C7", linestyle="--", lw=gridlinewidth, zorder=0)
+        ax.grid(which="major", axis="y", color="lightgray", linestyle="--", linewidth=gridlinewidth, zorder=0)
     return fig
 
 
 def _set_tick_style(fig: plt.Figure, spinewidth: float = 1.4) -> plt.Figure:
-    """set tick style for axes
-    args:
-        fig: figure object
-        spinewidth: width of spines
-    returns: figure object"""
+    """Set tick style for all axes in figure."""
     for ax in fig.axes:
         ax.tick_params(which="major", direction="out", length=3, width=spinewidth, bottom=True, left=True)
         ax.tick_params(which="minor", direction="out", length=2, width=spinewidth / 2, bottom=True, left=True)
-        plt.setp(ax.spines.values(), linewidth=spinewidth)
     return fig
 
 
 def _set_style(
-    fig: plt.Figure, offleft: float = 5, offbottom: float = 5, spinewidth: float = 1.4, gridlinewidth: float = 0.8
+    fig: plt.Figure,
+    offleft: float = 5,
+    offbottom: float = 5,
+    spinewidth: float = 1.4,
+    gridlinewidth: float = 0.8,
+    tight_layout: bool = True,
 ) -> plt.Figure:
-    """set style for plots (despine, grid, ticks)
-    args:
-        offleft: offset left
-        offbottom: offset bottom
-        spinewidth: width of spines
+    """Set publication-ready style for plots.
+
+    Args:
+        fig: Figure object to style
+        offleft: Left spine offset in points
+        offbottom: Bottom spine offset in points
+        spinewidth: Width of spines in points
+        gridlinewidth: Width of grid lines in points
+        tight_layout: Whether to apply tight_layout
+
+    Returns:
+        Styled figure object
     """
     fig = _set_spine_style(fig, offleft=offleft, offbottom=offbottom, spinewidth=spinewidth)
     fig = _set_grid_style(fig, gridlinewidth=gridlinewidth)
     fig = _set_tick_style(fig, spinewidth=spinewidth)
-    fig.tight_layout()
+
+    if tight_layout:
+        fig.tight_layout()
+
     return fig
 
 
 def get_figures(
-    rows: int, cols: int, unit: str, figwidth: float, figheight: float, sharex=True, sharey=True
-) -> plt.Figure:
-    """Get figure and axes object
-    args:
-        rows: number of rows
-        cols: number of columns
-        unit: unit of figure size (cm or inch)
-        figwidth: figure width
-        figheight: figure height
-        sharex: share x axis
-    returns: figure object, axes object"""
+    rows: int,
+    cols: int,
+    unit: Literal["cm", "inch"] = "cm",
+    figwidth: float = 10,
+    figheight: float = 8,
+    sharex: bool = False,
+    sharey: bool = False,
+    **subplot_kw,
+) -> Tuple[plt.Figure, plt.Axes]:
+    """Create figure and axes with publication-ready styling.
+
+    Args:
+        rows: Number of subplot rows
+        cols: Number of subplot columns
+        unit: Unit for figure dimensions ("cm" or "inch")
+        figwidth: Figure width in specified units
+        figheight: Figure height in specified units
+        sharex: Share x-axis across subplots
+        sharey: Share y-axis across subplots
+        **subplot_kw: Additional arguments passed to plt.subplots()
+
+    Returns:
+        Tuple of (figure, axes) objects
+
+    Raises:
+        ValueError: If dimensions or layout parameters are invalid
+    """
+    if rows <= 0 or cols <= 0:
+        raise ValueError("Rows and columns must be positive")
+    if figwidth <= 0 or figheight <= 0:
+        raise ValueError("Figure dimensions must be positive")
     if unit == "cm":
         figsize = (figwidth / CM2INCH, figheight / CM2INCH)
     elif unit == "inch":
@@ -103,7 +141,7 @@ def get_figures(
     else:
         raise ValueError(f"unit {unit} not supported")
     plt.ioff()  # Turn interactive mode off to prevent automatic plotting
-    fig, axes = plt.subplots(nrows=rows, ncols=cols, figsize=figsize, sharex=sharex, sharey=sharey)
+    fig, axes = plt.subplots(nrows=rows, ncols=cols, figsize=figsize, sharex=sharex, sharey=sharey, **subplot_kw)
     fig = _set_style(fig)
     return fig, axes
 
