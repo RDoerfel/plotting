@@ -1,3 +1,8 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![CI](https://github.com/RDoerfel/plotting/workflows/CI/badge.svg)](https://github.com/RDoerfel/plotting/actions?query=workflow%3ACI)
+[![codecov](https://codecov.io/gh/RDoerfel/plotting/branch/main/graph/badge.svg)](https://codecov.io/gh/RDoerfel/plotting)
+<br>
+
 # Plotting
 
 A lightweight, high-level Python library for creating publication-ready scientific figures with consistent styling. Built on top of matplotlib, this package provides a simplified interface for generating plots that meet the standards of scientific journals.
