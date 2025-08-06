@@ -58,7 +58,7 @@ fig.savefig("scientific_plot.pdf", dpi=300, bbox_inches="tight")
 
 ## API Reference
 
-### `set_rc_params(fontfamily=None, small=8, medium=10, big=12)`
+`set_rc_params(fontfamily=None, small=8, medium=10, big=12)`
 
 Configure global matplotlib parameters for publication-ready plots.
 
@@ -74,7 +74,7 @@ Configure global matplotlib parameters for publication-ready plots.
 set_rc_params(fontfamily="serif", small=10, medium=12, big=14)
 ```
 
-### `get_figures(rows, cols, unit="cm", figwidth=10, figheight=8, sharex=False, sharey=False, **subplot_kw)`
+`get_figures(rows, cols, unit="cm", figwidth=10, figheight=8, sharex=False, sharey=False, **subplot_kw)`
 
 Create styled figure and axes with publication-ready formatting.
 
