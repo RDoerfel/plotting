@@ -69,7 +69,7 @@ def _set_tick_style(fig: plt.Figure, spinewidth: float = 1.4) -> plt.Figure:
     return fig
 
 
-def set_style(
+def _set_style(
     fig: plt.Figure, offleft: float = 5, offbottom: float = 5, spinewidth: float = 1.4, gridlinewidth: float = 0.8
 ) -> plt.Figure:
     """set style for plots (despine, grid, ticks)
@@ -105,7 +105,7 @@ def get_figures(
         raise ValueError(f"unit {unit} not supported")
     plt.ioff()  # Turn interactive mode off to prevent automatic plotting
     fig, axes = plt.subplots(nrows=rows, ncols=cols, figsize=figsize, sharex=sharex, sharey=sharey)
-    fig = set_style(fig)
+    fig = _set_style(fig)
     return fig, axes
 
 
