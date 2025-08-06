@@ -2,8 +2,8 @@
 name = "plotting"
 version = "0.1.0"
 description = "High level functions for publication ready plots."
-authors = ["Ruben Doerfel"]
-license = "MIT"
+license = {file = "LICENSE"}
+authors = [{name = "Ruben Doerfel", email = "ruben.dorfel@gmail.com"}]
 readme = "README.md"
 
 [tool.poetry.dependencies]
