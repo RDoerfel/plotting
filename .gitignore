@@ -7,3 +7,12 @@ test.pdf
 
 # fonts specific
 *.otf
+
+# environment specific
+.env
+*.venv
+poetry.lock
+
+# test specific
+.pytest_cache/
+
