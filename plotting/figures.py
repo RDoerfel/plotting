@@ -2,8 +2,7 @@
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from typing import Tuple
-from plotting import CM
+from .constants import CM2INCH
 
 
 def set_rc_params(fontfamily: str = None, small=8, medium=10, big=12) -> None:
@@ -98,7 +97,7 @@ def get_figures(
         sharex: share x axis
     returns: figure object, axes object"""
     if unit == "cm":
-        figsize = (figwidth / CM, figheight / CM)
+        figsize = (figwidth / CM2INCH, figheight / CM2INCH)
     elif unit == "inch":
         figsize = (figwidth, figheight)
     else:

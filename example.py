@@ -1,9 +1,9 @@
 # %% Import modules
-import plotting.figures as figures
+from plotting import set_rc_params, get_figures
 
 
-figures.set_rc_params(fontfamily="serif", small=8, medium=10, big=12)
-fig, axs = figures.get_figures(rows=2, cols=1, unit="cm", figwidth=10, figheight=15, sharex=True, sharey=True)
+set_rc_params(fontfamily="serif", small=8, medium=10, big=12)
+fig, axs = get_figures(rows=2, cols=1, unit="cm", figwidth=10, figheight=15, sharex=True, sharey=True)
 
 axs[0].plot([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 axs[0].set_xlabel("x")

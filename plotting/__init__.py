@@ -13,9 +13,6 @@ from .figures import (
     get_figures,
 )
 
-# Constants
-CM = 2.54  # centimeters to inches conversion factor
-
 # set public functions
 __all__ = [
     "set_rc_params",
