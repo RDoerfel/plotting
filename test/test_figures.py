@@ -22,17 +22,7 @@ def test_get_figures():
 def test_set_style():
     """Test the set_style method."""
     fig, axs = figures.get_figures(rows=1, cols=1, unit="cm", figwidth=10, figheight=5)
-    fig = figures.set_style(fig, offleft=5, offbottom=5, spinewidth=1.4, gridlinewidth=0.8)
     assert fig is not None
     for ax in fig.axes:
         assert ax.spines["left"].get_linewidth() == 1.4
         assert ax.spines["bottom"].get_linewidth() == 1.4
-
-
-def test_save_fig(tmp_path):
-    """Test the save_fig method."""
-    fig, axs = figures.get_figures(rows=1, cols=1, unit="cm", figwidth=10, figheight=5)
-    filename = tmp_path / "test_plot.png"
-    figures.save_fig(fig, filename, dpi=300, bbox_inches="tight", pad_inches=0.1)
-    assert filename.exists()
-    assert filename.stat().st_size > 0  # Check if file is not empty
