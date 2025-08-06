@@ -10,3 +10,18 @@ __author__ = "Ruben Doerfel"
 
 # Constants
 CM = 2.54  # centimeters to inches conversion factor
+
+
+# convenience imports# Import main functions for convenience
+from .figures import (
+    set_rc_params,
+    get_figures,
+    set_style,
+)
+
+# set public functions
+__all__ = [
+    "set_rc_params",
+    "get_figures",
+    "set_style",
+]
