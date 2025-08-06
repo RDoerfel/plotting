@@ -13,6 +13,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from plotting import figures
 from plotting.constants import CM2INCH
 
+# Ensure matplotlib does not try to use an interactive backend (necessary for CI environments)
+mpl.use("Agg")
+
 
 class TestSetRcParams:
     """Test suite for set_rc_params function."""
